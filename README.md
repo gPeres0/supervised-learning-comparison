@@ -27,3 +27,10 @@
 - Implementação dos algoritmos escolhidos (mínimo 2 algoritmos, podendo ser aqueles abordados em aula ou outros algoritmos da literatura). Para alguns algoritmos, pode ser necessário avaliar diferentes valores para os hiper-parâmetros ou outras opções que o método fornece. Por exemplo, para o k-NN, avaliar diferentes valores de k e métricas de distância.
 - Avaliação dos modelos com métricas e gráficos. Lembre-se de utilizar validação cruzada para divisão do conjunto de dados e métricas adequadas ao problema de classificação.
 - Discussão dos resultados.
+
+## Dataset utilizado
+Os dados do dataset foram coletados na rampa de acesso de Glendale para a rodovia 101 Norte em Los Angeles. O sensor de loop estava localizado próximo o suficiente do estádio do Dodgers para registrar tráfego incomum após um jogo do time, mas não tão próximo ou tão intensamente utilizado pelo tráfego do evento a ponto de o sinal do tráfego extra ser excessivamente óbvio.
+- **OBSERVAÇÃO:** Trata-se de uma rampa de acesso próxima ao estádio, portanto o tráfego relacionado ao evento **COMEÇA** no final ou próximo ao final do horário do evento.
+- As observações foram feitas ao longo de 25 semanas, com 288 intervalos de tempo por dia (agregados de contagem a cada 5 minutos).
+- O objetivo é prever a ocorrência de um jogo de beisebol no estádio dos Dodgers.
+- Encontrado em: [https://archive.ics.uci.edu/dataset/157/dodgers+loop+sensor]
