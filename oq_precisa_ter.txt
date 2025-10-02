@@ -1,0 +1,9 @@
+Estrutura do Jupyter Notebook
+
+    Título, autores e objetivos.
+    Importação das bibliotecas.
+    Carregamento e descrição da base de dados.
+    Pré-processamento (se necessário). Ex: dados faltantes, transformação de dados categóricos em numéricos, escalas diferentes, outliers, dados desbalanceados, dados duplicados ou inconsistentes, ...
+    Implementação dos algoritmos escolhidos (mínimo 2 algoritmos, podendo ser aqueles abordados em aula ou outros algoritmos da literatura). Para alguns algoritmos, pode ser necessário avaliar diferentes valores para os hiper-parâmetros ou outras opções que o método fornece. Por exemplo, para o k-NN, avaliar diferentes valores de k e métricas de distância.
+    Avaliação dos modelos com métricas e gráficos. Lembre-se de utilizar validação cruzada para divisão do conjunto de dados e métricas adequadas ao problema de classificação.
+    Discussão dos resultados.
