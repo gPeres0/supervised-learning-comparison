@@ -29,7 +29,7 @@
 - Discussão dos resultados.
 
 ## Dataset utilizado
-Os dados do dataset foram coletados na rampa de acesso de Glendale para a rodovia 101 Norte em Los Angeles. O sensor de loop estava localizado próximo o suficiente do estádio do Dodgers para registrar tráfego incomum após um jogo do time, mas não tão próximo ou tão intensamente utilizado pelo tráfego do evento a ponto de o sinal do tráfego extra ser excessivamente óbvio.
+Os dados do dataset foram coletados em uma rampa de acesso de Glendale para a rodovia 101 Norte em Los Angeles. O sensor de loop estava localizado próximo o suficiente do estádio do Dodgers para registrar tráfego incomum após um jogo do time, mas não tão próximo ou tão intensamente utilizado pelo tráfego do evento a ponto de o sinal do tráfego extra ser óbvio demais.
 - **OBSERVAÇÃO:** Trata-se de uma rampa de acesso próxima ao estádio, portanto o tráfego relacionado ao evento **COMEÇA** no final ou próximo ao final do horário do evento.
 - As observações foram feitas ao longo de 25 semanas, com 288 intervalos de tempo por dia (agregados de contagem a cada 5 minutos).
 - O objetivo é prever a ocorrência de um jogo de beisebol no estádio dos Dodgers.
