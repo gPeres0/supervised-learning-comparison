@@ -1,0 +1,67 @@
+{
+  "modelo": "KNN",
+  "divisões_cv": 10,
+  "melhores_parametros": {
+    "knn__metric": "minkowski",
+    "knn__n_neighbors": 5,
+    "knn__p": 2
+  },
+  "metricas_ponto_no_conjunto": {
+    "acurácia": 0.9737103174603174,
+    "precisão": 0.7844536237326324,
+    "revocação": 0.7355633802816901,
+    "f1": 0.7592222424132291,
+    "roc_auc": 0.9802350440955236
+  },
+  "matriz_de_confusão": [
+    [
+      46986,
+      574
+    ],
+    [
+      751,
+      2089
+    ]
+  ],
+  "curva_roc": {
+    "fpr": [
+      0.0,
+      0.0006097560975609756,
+      0.003973927670311186,
+      0.01206896551724138,
+      0.029499579478553407,
+      0.059629941126997474,
+      1.0
+    ],
+    "tpr": [
+      0.0,
+      0.1841549295774648,
+      0.4556338028169014,
+      0.7355633802816901,
+      0.9109154929577464,
+      0.9809859154929578,
+      1.0
+    ],
+    "limiares": [
+      Infinity,
+      1.0,
+      0.8,
+      0.6,
+      0.4,
+      0.2,
+      0.0
+    ]
+  },
+  "nomes_das_variáveis": [
+    "_year",
+    "_month",
+    "_day",
+    "_dayofweek",
+    "_dayofyear",
+    "_hour",
+    "_minute",
+    "_minutes_since_midnight",
+    "_is_weekend",
+    "_count"
+  ]
+}
