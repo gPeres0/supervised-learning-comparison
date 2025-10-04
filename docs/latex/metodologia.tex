@@ -1,0 +1,91 @@
+\documentclass[12pt,oneside]{abntex2}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{csquotes}
+\usepackage[alf]{abntex2cite} % autor-ano no padrão ABNT
+
+\title{Metodologia}
+\author{Rodrigo Macedo}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Metodologia}
+
+\subsection*{Algoritmos utilizados}
+
+\subsubsection*{Regressão Logística (treinada por Gradiente Descendente)}
+A Regressão Logística modela diretamente a probabilidade da classe positiva por meio da função sigmoide
+$\sigma(z) = \frac{1}{1 + e^{-z}}$, onde $z = \beta_0 + \sum_j \beta_j x_j$.
+Os parâmetros $\beta$ são estimados por máxima verossimilhança, o que equivale a minimizar a perda logística
+(entropia cruzada), conforme apresentado nos slides da disciplina \cite{naozuka_logistica_2025}.
+Trata-se de um problema convexo com ótimo global e solução eficiente.
+A otimização pode ser feita via Gradiente Descendente (batch, mini-batch ou SGD), com atualização típica
+$\beta \leftarrow \beta - \eta \nabla J(\beta)$, critérios de parada e escolha de taxa de aprendizado
+\cite{naozuka_logistica_2025}.
+
+No contexto do nosso problema, a saída probabilística é especialmente útil: podemos ajustar o \emph{limiar de decisão}
+de acordo com a métrica ou o custo operacional que queremos otimizar (por exemplo, privilegiar \emph{recall} em eventos raros).
+Os slides também destacam que, apesar das vantagens, a fronteira de decisão é linear no espaço de atributos --- o que pode limitar
+o desempenho quando as relações são não lineares --- e recomendam normalização/padronização para melhor desempenho
+\cite{naozuka_logistica_2025}. Em cenários com classes desbalanceadas, é adequada a ponderação por classe e/ou o ajuste do limiar,
+conforme orientação dos materiais de aula \cite{naozuka_logistica_2025,naozuka_metricas_2025}.
+
+\paragraph*{Resumo prático.}
+\begin{itemize}
+  \item \textbf{Pontos fortes:} probabilidades interpretáveis; perda convexa; treinamento rápido; bom \emph{baseline} para classificação binária \cite{naozuka_logistica_2025}.
+  \item \textbf{Cuidados:} fronteira linear (engenharia de atributos pode ser necessária); sensível ao limiar em dados desbalanceados; requer padronização \cite{naozuka_logistica_2025,naozuka_metricas_2025}.
+\end{itemize}
+
+\subsubsection*{\texorpdfstring{$k$-Vizinhos Mais Próximos (k-NN)}{k-Vizinhos Mais Próximos (k-NN)}}
+O k-NN é um método supervisionado baseado em instâncias: para um exemplo novo, calcula-se a distância para os exemplos de treino,
+selecionam-se os $k$ vizinhos mais próximos e decide-se por votação da classe mais frequente (ou ponderada por distância).
+É um algoritmo ``preguiçoso'' (sem fase explícita de treinamento), cuja qualidade depende da escolha de \emph{k} e da métrica de distância
+\cite{naozuka_knn_2025}. Os slides listam as métricas mais usadas (Euclidiana, Manhattan, Chebyshev, Minkowski e similaridade do cosseno)
+e enfatizam que a seleção adequada impacta o desempenho \cite{naozuka_knn_2025}.
+
+O hiperparâmetro \emph{k} controla o equilíbrio \emph{viés--variância}: \emph{k} pequeno captura padrões muito locais (maior variância),
+enquanto \emph{k} grande suaviza a fronteira (maior viés). Os materiais de aula recomendam a escolha de \emph{k} por validação cruzada
+e discutem empates e variações de votação \cite{naozuka_knn_2025}. No nosso cenário, em que há padrões temporais e regiões do espaço de atributos
+com maior propensão para \emph{eventos}, o k-NN pode capturar bem essas vizinhanças sem impor uma hipótese de linearidade global.
+
+\paragraph*{Resumo prático.}
+\begin{itemize}
+  \item \textbf{Pontos fortes:} captura padrões locais; simples de entender e implementar; bom \emph{baseline} não paramétrico \cite{naozuka_knn_2025}.
+  \item \textbf{Cuidados:} necessita padronização; escolha de métrica e de \emph{k} é crítica; custo de predição cresce com o tamanho do treino \cite{naozuka_knn_2025}.
+\end{itemize}
+
+\subsection*{Validação e seleção de hiperparâmetros}
+Para estimar o desempenho fora da amostra e reduzir a variância da avaliação, utilizamos \textbf{validação cruzada k-fold estratificada}.
+O procedimento k-fold (dividir em $k$ partes; treinar em $k{-}1$ e testar em 1, iterando por todas as dobras) está detalhado nos slides,
+bem como o papel de treino/validação/teste na construção de estimativas mais confiáveis \cite{naozuka_metricas_2025}.
+Valores típicos de $k$ na prática são $5$ ou $10$, que costumam oferecer bom compromisso entre custo e estabilidade da estimativa
+\cite{naozuka_metricas_2025}.
+
+\subsection*{Métricas de avaliação}
+As métricas que reportamos derivam da \textbf{matriz de confusão} e foram trabalhadas em aula \cite{naozuka_metricas_2025}:
+\begin{itemize}
+  \item \textbf{Acurácia}: proporção de acertos globais; pode ser enganosa em bases desbalanceadas.
+  \item \textbf{Precisão (Precision)}: entre os preditos como positivos, fração dos que são realmente positivos.
+  \item \textbf{Sensibilidade (Recall/TPR)}: fração de positivos reais corretamente identificados.
+  \item \textbf{F1-score}: média harmônica entre Precisão e Sensibilidade, útil quando é necessário balancear ambos.
+  \item \textbf{Curva ROC e AUC}: a curva traça TPR vs.\ FPR variando o limiar; a AUC resume a capacidade de ranqueamento do classificador independentemente do limiar \cite{naozuka_metricas_2025}.
+\end{itemize}
+
+Em cenários com \textbf{desbalanceamento}, os slides enfatizam a necessidade de ajustar o \textbf{limiar de decisão} para adequar o modelo ao objetivo (por exemplo, maximizar Recall sob controle de FPR ou maximizar F1), o que é natural para classificadores probabilísticos como a Regressão Logística \cite{naozuka_logistica_2025,naozuka_metricas_2025}.
+
+\subsection*{Relação com o problema estudado}
+Dadas as características do problema (classe binária e variáveis temporais), a Regressão Logística fornece probabilidades e controle
+de limiar, sendo uma escolha sólida como \emph{baseline} interpretável; o k-NN complementa ao capturar padrões locais do espaço de atributos,
+sem impor linearidade global. A avaliação com validação cruzada e as métricas apresentadas em aula permitem comparar os modelos sob múltiplos
+critérios (acurácia, precisão, sensibilidade, F1 e AUC), obedecendo ao que foi discutido nos materiais da disciplina
+\cite{naozuka_logistica_2025,naozuka_knn_2025,naozuka_metricas_2025}.
+
+\bibliography{referencias_metodologia}
+\end{document}
