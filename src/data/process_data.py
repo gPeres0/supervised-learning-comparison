@@ -11,12 +11,10 @@ EVENTS_FILE = './data/Dodgers_events.csv'
 # Os dados não têm cabeçalho, então definimos as colunas
 df_data = pd.read_csv(DATA_FILE)
 
-# ---
 
 # 2. Tratamento de valores ausentes (Count = -1)
 # O método é uma imputação iterativa baseada nos 4 vizinhos válidos mais próximos
 # e arredondamento para cima.
-
 def impute_missing_count(series):
     """
     Substitui -1 pela média aritmética dos 4 vizinhos válidos mais próximos,
@@ -77,7 +75,6 @@ df_data['Count_Imputed'] = impute_missing_count(df_data['Count'])
 df_data.drop('Count', axis=1, inplace=True)
 df_data.rename(columns={'Count_Imputed': 'Count'}, inplace=True)
 
-# ---
 
 # 3. Adicionar a coluna "event" (0 ou 1)
 # Carregar o arquivo de eventos
@@ -95,9 +92,8 @@ for index, row in df_events.iterrows():
     df_data.loc[(pd.to_datetime(df_data['Date']) == date) & (pd.to_datetime(df_data['Time']) >= start) & (pd.to_datetime(df_data['Time']) <= end), 'Event'] = 1
     print(df_data['Event'][index])
 
-# ---
 
-# 4. Formatar o Output como CSV
+# 4. Formatação do Output como CSV
 
 # Reordenar as colunas no formato final (Date, Time, Count, event)
 df_final = df_data[['Date', 'Time', 'Count', 'Event']]
